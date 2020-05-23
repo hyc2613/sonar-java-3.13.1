@@ -1,0 +1,135 @@
+# Definition of QA pipeline at SonarSource
+#
+# Possible values for SLAVE: "performance" (for perf tests) and "linux" (for linux machines connected to DB services)
+
+TEST:
+  - plugin
+  - ruling
+  - performancing
+
+SQ_VERSION:
+  - LTS
+  - 5.2
+  - 5.3
+  - DEV
+  - LATEST_RELEASE
+
+
+
+exclude:
+#exclude plugin tests on performance slaves
+  - TEST: plugin
+    SLAVE: performance
+    SQ_VERSION: LTS
+  - TEST: plugin
+    SLAVE: performance
+    SQ_VERSION: 5.2
+  - TEST: plugin
+    SLAVE: performance
+    SQ_VERSION: 5.3
+  - TEST: plugin
+    SLAVE: performance
+    SQ_VERSION: DEV
+  - TEST: plugin
+    SLAVE: performance
+    SQ_VERSION: LATEST_RELEASE
+#exclude plugin tests on windows except for LATEST_RELEASE
+  - TEST: plugin
+    SLAVE: windows
+    SQ_VERSION: LTS
+  - TEST: plugin
+    SLAVE: windows
+    SQ_VERSION: 5.2
+  - TEST: plugin
+    SLAVE: windows
+    SQ_VERSION: 5.3
+  - TEST: plugin
+    SLAVE: windows
+    SQ_VERSION: DEV
+#exclude ruling tests on performance slaves
+  - TEST: ruling
+    SLAVE: performance
+    SQ_VERSION: LTS
+  - TEST: ruling
+    SLAVE: performance
+    SQ_VERSION: 5.2
+  - TEST: ruling
+    SLAVE: performance
+    SQ_VERSION: 5.3
+  - TEST: ruling
+    SLAVE: performance
+    SQ_VERSION: DEV
+  - TEST: ruling
+    SLAVE: performance
+    SQ_VERSION: LATEST_RELEASE
+#exclude all ruling jobs other than on LATEST_RELEASE on linux
+  - TEST: ruling
+    SLAVE: linux
+    SQ_VERSION: LTS
+  - TEST: ruling
+    SLAVE: linux
+    SQ_VERSION: 5.2
+  - TEST: ruling
+    SLAVE: linux
+    SQ_VERSION: 5.3
+  - TEST: ruling
+    SLAVE: linux
+    SQ_VERSION: DEV
+#exclude all ruling jobs other than on LATEST_RELEASE on windows
+  - TEST: ruling
+    SLAVE: windows
+    SQ_VERSION: LTS
+  - TEST: ruling
+    SLAVE: windows
+    SQ_VERSION: 5.2
+  - TEST: ruling
+    SLAVE: windows
+    SQ_VERSION: 5.3
+  - TEST: ruling
+    SLAVE: windows
+    SQ_VERSION: DEV
+#exclude all performances jobs on linux slaves
+  - TEST: performancing
+    SLAVE: linux
+    SQ_VERSION: LTS
+  - TEST: performancing
+    SLAVE: linux
+    SQ_VERSION: 5.2
+  - TEST: performancing
+    SLAVE: linux
+    SQ_VERSION: 5.3
+  - TEST: performancing
+    SLAVE: linux
+    SQ_VERSION: DEV
+  - TEST: performancing
+    SLAVE: linux
+    SQ_VERSION: LATEST_RELEASE
+#exclude all performances jobs on windows slaves
+  - TEST: performancing
+    SLAVE: windows
+    SQ_VERSION: LTS
+  - TEST: performancing
+    SLAVE: windows
+    SQ_VERSION: 5.2
+  - TEST: performancing
+    SLAVE: windows
+    SQ_VERSION: 5.3
+  - TEST: performancing
+    SLAVE: windows
+    SQ_VERSION: DEV
+  - TEST: performancing
+    SLAVE: windows
+    SQ_VERSION: LATEST_RELEASE
+#exclude all performances jobs other than on LATEST_RELEASE
+  - TEST: performancing
+    SLAVE: performance
+    SQ_VERSION: LTS
+  - TEST: performancing
+    SLAVE: performance
+    SQ_VERSION: 5.2
+  - TEST: performancing
+    SLAVE: performance
+    SQ_VERSION: 5.3
+  - TEST: performancing
+    SLAVE: performance
+    SQ_VERSION: DEV
