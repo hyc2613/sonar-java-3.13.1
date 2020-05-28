@@ -53,6 +53,7 @@
     <module>java-jacoco-previous</module>
     <module>sonar-compat</module>
     <module>its</module>
+    <module>landray-java-checks</module>
   </modules>
 
   <scm>

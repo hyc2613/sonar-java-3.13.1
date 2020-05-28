@@ -1,0 +1,27 @@
+<p>特定关键词：<code>do/while/if/else/for/switch</code>后面必须带空格</p>
+
+<h2>Noncompliant Code Example</h2>
+
+<pre>
+    int i = 0;
+    for(i = 0; i < 10; i++) { // Noncompliant
+        // do something
+    }
+
+    if(i < 10) {  // Noncompliant
+        // do something
+    }
+
+</pre>
+
+<h2>Compliant Solution</h2>
+<pre>
+    int i = 0;
+    for (i = 0; i < 10; i++) {
+        // do something
+    }
+
+    if (i < 10) {
+        // do something
+    }
+</pre>

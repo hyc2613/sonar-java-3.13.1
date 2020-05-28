@@ -21,7 +21,10 @@ package org.sonar.plugins.java;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.java.checks.CheckList;
+import org.sonar.landray.checks.LandrayCheckList;
 import org.sonar.squidbridge.annotations.AnnotationBasedRulesDefinition;
+
+import static org.sonar.java.checks.CheckList.REPOSITORY_KEY;
 
 /**
  * Replacement for org.sonar.plugins.squid.SquidRuleRepository
@@ -31,7 +34,7 @@ public class JavaRulesDefinition implements RulesDefinition {
   @Override
   public void define(Context context) {
     NewRepository repository = context
-      .createRepository(CheckList.REPOSITORY_KEY, Java.KEY)
+      .createRepository(REPOSITORY_KEY, Java.KEY)
       .setName("SonarQube");
 
     AnnotationBasedRulesDefinition.load(repository, Java.KEY, CheckList.getChecks());
@@ -40,5 +43,23 @@ public class JavaRulesDefinition implements RulesDefinition {
       rule.setInternalKey(rule.key());
     }
     repository.done();
+    defineLandray(context);
+  }
+
+  /**
+   * 加载蓝凌扩展的规则
+   *
+   * @param context
+   */
+  private void defineLandray(Context context) {
+    NewRepository landrayRepo = context.createRepository(LandrayCheckList.REPOSITORY_KEY, Java.KEY);
+    landrayRepo.setName(LandrayCheckList.REPOSITORY_KEY);
+
+    AnnotationBasedRulesDefinition.load(landrayRepo, Java.KEY, LandrayCheckList.getChecks());
+    for (NewRule rule : landrayRepo.rules()) {
+      //FIXME: set internal key to key to ensure rule templates works properly : should be removed when SONAR-6162 is fixed.
+      rule.setInternalKey(rule.key());
+    }
+    landrayRepo.done();
   }
 }
